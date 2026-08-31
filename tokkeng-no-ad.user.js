@@ -77,7 +77,7 @@
         // 페이지가 같은지 확인
         if (notEqualPage(prePage, curPage)) {
             prePage = curPage; // 다른 페이지이면 저번 페이지에 현재 페이지 값을 저장
-            await sleep(interval / 2); // 광고가 바로 지워지지 않도록 시간 끌기
+            await sleep(interval * 7 / 10); // 광고가 바로 지워지지 않도록 시간 끌기
         };
 
         removeBanners(); // 광고 배너 제거
