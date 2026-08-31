@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         토깽이 광고제거
 // @namespace    http://tampermonkey.net/
-// @version      1.13
+// @version      1.14
 // @description  토깽이 광고지우는 용도
 // @author       NoAD
 // @match        *://newtoki1.org/*
@@ -61,7 +61,7 @@
             await sleep(interval / 2); // 광고가 바로 지워지지 않도록 시간 끌기
         };
 
-        removeBanners(); // 광고 배너 제거
+        removeBanners(); // 광고 배너 제거...
     }, interval);
 })();
 
