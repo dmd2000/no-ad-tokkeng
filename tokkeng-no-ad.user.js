@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         토깽이 광고제거
 // @namespace    http://tampermonkey.net/
-// @version      1.15
+// @version      1.16
 // @description  토깽이 광고지우는 용도
 // @author       NoAD
 // @match        *://newtoki1.org/*
@@ -45,12 +45,35 @@
         for (let adBanner of adBanners) adBanner.remove(); // 배열에서 태그를 전부 제거
     }
 
+    // 초창기 팝업 지우기
+    function removePopup(curPage) {
+        if (curPage != '/') return; // 현재페이지가 초기 페이지가 아니면 함수 중단
+
+        const prefix = "newtoki_popup_hide_";
+
+        if (window.document.cookie.split(prefix).length - 1 == 3) return; // 3개 팝업 다 설정했다는 것이므로 함수 중단
+
+        const expires = new Date(Date.now() + 24 * 60 * 60 * 1000 * 365).toUTCString(); // 쿠키 수명 조정
+        const popups = window.document.querySelectorAll("article[data-theme-popup-card]"); // html 중 <article data-theme-popup-card>로 된 태그 데이터의 배열 생성
+
+        for (const popup of popups) {
+            const id = popup.getAttribute("data-data-popup-id"); // 팝업의 아이디
+            document.cookie = prefix + id + "=1; expires=" + expires + "; path=/; samesite=lax"; // 브라우저 쿠키 설정해서 '오늘 그만보기' 대신 만들어줌
+        }
+
+        const popupRoot = window.document.querySelector("div[data-theme-popup-root]"); // html 중 <div data-popup-root>로 된 태그 저장
+        if (popupRoot) popupRoot.remove(); // 있다면 제거
+    }
+
+
     let interval = calInterval(); // 인터벌 계산
     let prePage = ""; // 저번 페이지
 
     // 광고 제거 로직 반복 구간
     setInterval(async () => {
         let curPage = window.location.pathname; // 현재 페이지
+
+        removePopup(curPage);
 
         // 페이지가 같은지 확인
         if (notEqualPage(prePage, curPage)) {
