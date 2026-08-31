@@ -61,7 +61,7 @@
             await sleep(interval / 2); // 광고가 바로 지워지지 않도록 시간 끌기
         };
 
-        removeBanners(); // 광고 배너 제거...
+        removeBanners(); // 광고 배너 제거
     }, interval);
 })();
 
