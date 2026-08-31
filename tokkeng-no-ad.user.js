@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         토깽이 광고제거
 // @namespace    http://tampermonkey.net/
-// @version      1.14
+// @version      1.15
 // @description  토깽이 광고지우는 용도
 // @author       NoAD
 // @match        *://newtoki1.org/*
@@ -16,7 +16,7 @@
 (async () => {
 
     // 광고 제거 로직 '반복 시간(인터벌)' 계산
-    function calInterval () {
+    function calInterval() {
         let result = 0;
         const isNewtoki = window.location.hostname.includes("newtoki"); // 도메인에 "newtoki"가 있는지 확인
         const isToki = window.location.hostname.includes("toki"); // 도메인에 "toki"가 있는지 확인
@@ -35,17 +35,14 @@
 
     // 광고를 페이지가 변경되고 바로 제거하지 않기 위함
     async function sleep(interval) {
-        await setTimeout(() => {}, interval);
+        await setTimeout(() => { }, interval);
     }
 
     // 광고 배너 제거
     function removeBanners() {
-        const adBanners = window.document.querySelectorAll("section[data-br-n]"); // html 중 <section data-br-n=숫자>로 된 태그가 있는 데이터의 배열 생성
+        const adBanners = window.document.querySelectorAll("section[data-br-n]"); // html 중 <section data-br-n=숫자>로 된 태그 데이터의 배열 생성
 
-        // 배열에 하나라도 있는지 체크
-        if (adBanners.length > 0) {
-            for (let adBanner of adBanners) adBanner.remove(); // 태그를 하나씩 제거
-        }
+        for (let adBanner of adBanners) adBanner.remove(); // 배열에서 태그를 전부 제거
     }
 
     let interval = calInterval(); // 인터벌 계산
