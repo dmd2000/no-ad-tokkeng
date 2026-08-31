@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         토깽이 광고제거
 // @namespace    http://tampermonkey.net/
-// @version      1.18
+// @version      1.18.1
 // @description  토깽이 광고지우는 용도
 // @author       NoAD
 // @match        *://newtoki1.org/*
@@ -49,8 +49,19 @@
     function removePopup(curPage) {
         if (curPage != '/') return; // 현재페이지가 초기 페이지가 아니면 함수 중단
 
-        const popup = window.document.querySelector("div[role='dialog']"); // html 중 <div role="dialog">로 된 태그 저장
-        if (popup) popup.remove(); // popup 있다면 제거
+        const prefix = "newtoki_popup_hide_";
+
+        if (window.document.cookie.split(prefix).length - 1 > 2) return; // 3개 팝업 다 설정했다는 것이므로 함수 중단
+
+        const expires = new Date(Date.now() + 24 * 60 * 60 * 1000 * 365).toUTCString(); // 쿠키 수명 조정
+        const ids = [2, 4, 6]; // 팝업 배너의 아이디
+
+        for (const id of ids) {
+            document.cookie = prefix + id + "=1; expires=" + expires + "; path=/; samesite=lax"; // 쿠키 설정
+        }
+
+        const popupRoot = window.document.querySelector("div[role='dialog']"); // html 중 <div role="dialog">로 된 태그 저장
+        if (popupRoot) popupRoot.remove(); // popupRoot가 있다면 제거
     }
 
 
