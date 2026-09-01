@@ -68,7 +68,7 @@
         let curPage = window.location.pathname; // 현재 페이지
 
         removePopup(curPage); // 초창기 팝업 제거
-        await removeBanners(interval / 5 * 2); // 광고 배너 제거
+        await removeBanners(interval / 5 * 2); // 광고 배너 제거. 0.4초
     }, interval);
 
 })();
