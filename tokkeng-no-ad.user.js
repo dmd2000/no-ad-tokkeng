@@ -21,9 +21,9 @@
         const isNewtoki = window.location.hostname.includes("newtoki"); // 도메인에 "newtoki"가 있는지 확인
         const isToki = window.location.hostname.includes("toki"); // 도메인에 "toki"가 있는지 확인
 
-        if (isNewtoki) result = 1 * 1000; // newtoki 이면 1초 설정
-        else if (isToki) result = 1 * 1000; // toki 이면 1초 설정
-        else result = 1 * 1000; // 그 외엔 1초 설정
+        if (isNewtoki) result = 1.0 * 1000; // newtoki 이면 1초 설정
+        else if (isToki) result = 1.0 * 1000; // toki 이면 1초 설정
+        else result = 1.0 * 1000; // 그 외엔 1초 설정
 
         return result;
     }
