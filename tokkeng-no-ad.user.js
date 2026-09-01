@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         토깽이 광고제거
 // @namespace    http://tampermonkey.net/
-// @version      1.19.1
+// @version      1.19.11
 // @description  토깽이 광고지우는 용도
 // @author       NoAD
 // @match        *://newtoki1.org/*
@@ -68,7 +68,7 @@
         let curPage = window.location.pathname; // 현재 페이지
 
         removePopup(curPage); // 초창기 팝업 제거
-        await removeBanners(interval / 10 * 3); // 광고 배너 제거
+        await removeBanners(interval / 5 * 2); // 광고 배너 제거
     }, interval);
 
 })();
