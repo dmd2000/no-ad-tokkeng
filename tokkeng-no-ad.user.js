@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         토깽이 광고제거
 // @namespace    http://tampermonkey.net/
-// @version      1.18.2
+// @version      1.19.0
 // @description  토깽이 광고지우는 용도
 // @author       NoAD
 // @match        *://newtoki1.org/*
@@ -21,28 +21,25 @@
         const isNewtoki = window.location.hostname.includes("newtoki"); // 도메인에 "newtoki"가 있는지 확인
         const isToki = window.location.hostname.includes("toki"); // 도메인에 "toki"가 있는지 확인
 
-        if (isNewtoki) result = 1.2 * 1000; // newtoki 이면 1.2초 설정
-        else if (isToki) result = 2 * 1000; // toki 이면 2초 설정
-        else result = 2.5 * 1000; // 그 외엔 2.5초 설정
+        if (isNewtoki) result = 1 * 1000; // newtoki 이면 1초 설정
+        else if (isToki) result = 1 * 1000; // toki 이면 1초 설정
+        else result = 1 * 1000; // 그 외엔 1초 설정
 
         return result;
     }
 
-    // 제거 로직이 반복될 때마다 같은 페이지인지 확인
-    function notEqualPage(pre, cur) {
-        return pre != cur;
-    }
-
-    // 광고를 페이지가 변경되고 바로 제거하지 않기 위함
-    async function sleep(interval) {
-        await setTimeout(() => { }, interval);
-    }
-
     // 광고 배너 제거
-    function removeBanners() {
+    async function removeBanners(time) {
         const adBanners = window.document.querySelectorAll("section[data-br-n]"); // html 중 <section data-br-n=숫자>로 된 태그 데이터의 배열 생성
 
-        for (let adBanner of adBanners) adBanner.remove(); // 배열에서 태그를 전부 제거
+        // 배열에 데이터가 있다면
+        if (adBanners.length > 0) {
+
+            // 타이머가 지나면 코드를 실행
+            await setTimeout(() => {
+                for (let adBanner of adBanners) adBanner.remove(); // 배열에서 태그를 전부 제거
+            }, time);
+        }
     }
 
     // 초창기 팝업 지우기
@@ -64,23 +61,15 @@
         if (popupRoot) popupRoot.remove(); // popupRoot가 있다면 제거
     }
 
-
     let interval = calInterval(); // 인터벌 계산
-    let prePage = ""; // 저번 페이지
 
     // 광고 제거 로직 반복 구간
     setInterval(async () => {
         let curPage = window.location.pathname; // 현재 페이지
 
         removePopup(curPage); // 초창기 팝업 제거
-
-        // 페이지가 같은지 확인
-        if (notEqualPage(prePage, curPage)) {
-            prePage = curPage; // 다른 페이지이면 저번 페이지에 현재 페이지 값을 저장
-            await sleep(interval * 7 / 10); // 광고가 바로 지워지지 않도록 시간 끌기
-        };
-
-        removeBanners(); // 광고 배너 제거
+        await removeBanners(interval / 5); // 광고 배너 제거
     }, interval);
+
 })();
 
