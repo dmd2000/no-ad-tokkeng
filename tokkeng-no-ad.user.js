@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         토깽이 광고제거
 // @namespace    http://tampermonkey.net/
-// @version      1.19.0
+// @version      1.19.1
 // @description  토깽이 광고지우는 용도
 // @author       NoAD
 // @match        *://newtoki1.org/*
@@ -30,7 +30,7 @@
 
     // 광고 배너 제거
     async function removeBanners(time) {
-        const adBanners = window.document.querySelectorAll("section[data-br-n]"); // html 중 <section data-br-n=숫자>로 된 태그 데이터의 배열 생성
+        const adBanners = document.querySelectorAll("section[data-br-n]"); // html 중 <section data-br-n=숫자>로 된 태그 데이터의 배열 생성
 
         // 배열에 데이터가 있다면
         if (adBanners.length > 0) {
@@ -48,7 +48,7 @@
 
         const prefix = "newtoki_popup_hide_";
 
-        if (window.document.cookie.split(prefix).length - 1 > 2) return; // 3개 팝업 다 설정했다는 것이므로 함수 중단
+        if (document.cookie.split(prefix).length - 1 > 2) return; // 3개 팝업 다 설정했다는 것이므로 함수 중단
 
         const expires = new Date(Date.now() + 24 * 60 * 60 * 1000 * 365).toUTCString(); // 쿠키 수명 조정
         const ids = [2, 4, 6]; // 팝업 배너의 아이디
@@ -57,7 +57,7 @@
             document.cookie = prefix + id + "=1; expires=" + expires + "; path=/; samesite=lax"; // 쿠키 설정
         }
 
-        const popupRoot = window.document.querySelector("div[role='dialog']"); // html 중 <div role="dialog">로 된 태그 저장
+        const popupRoot = document.querySelector("div[role='dialog']"); // html 중 <div role="dialog">로 된 태그 저장
         if (popupRoot) popupRoot.remove(); // popupRoot가 있다면 제거
     }
 
@@ -68,7 +68,7 @@
         let curPage = window.location.pathname; // 현재 페이지
 
         removePopup(curPage); // 초창기 팝업 제거
-        await removeBanners(interval / 5); // 광고 배너 제거
+        await removeBanners(interval / 10 * 3); // 광고 배너 제거
     }, interval);
 
 })();
