@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         토깽이 광고제거
 // @namespace    http://tampermonkey.net/
-// @version      1.19.14
+// @version      1.19.15
 // @description  토깽이 광고지우는 용도
 // @author       NoAD
 // @match        *://newtoki*.org/*
@@ -50,8 +50,8 @@
     }
 
     // let interval = calInterval(); // 인터벌 계산
-    let interval = 1 * 1000; // 인터벌 1초
-    let time = interval / 5 * 2; // 배너 지우는 시간 0.4초
+    let interval = 0.5 * 1000; // 인터벌 0.5초
+    let time = 0.4 * 1000; // 배너 지우는 시간 0.4초
 
     // 광고 제거 로직 반복 구간
     setInterval(async () => {
