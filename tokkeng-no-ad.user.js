@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         토깽이 광고제거
 // @namespace    http://tampermonkey.net/
-// @version      1.19.12
+// @version      1.19.13
 // @description  토깽이 광고지우는 용도
 // @author       NoAD
 // @match        *://newtoki*.org/*
