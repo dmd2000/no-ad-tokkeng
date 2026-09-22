@@ -35,7 +35,7 @@
         // 배열에 데이터가 없다면 중단
         if (adBanners.length < 1) return;
 
-        for (let adBanner of adBanners) adBanner.innerHTML = '';
+        for (let adBanner of adBanners) adBanner.innerHTML = ''; // 광고 삭제 속도 증가
 
         // 타이머가 지나면 코드를 실행
         setTimeout(() => {
