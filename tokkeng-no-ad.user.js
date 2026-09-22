@@ -35,6 +35,8 @@
         // 배열에 데이터가 없다면 중단
         if (adBanners.length < 1) return;
 
+        for (let adBanner of adBanners) adBanner.innerHTML = '';
+
         // 타이머가 지나면 코드를 실행
         setTimeout(() => {
             for (let adBanner of adBanners) adBanner.remove(); // 배열에서 태그를 전부 제거
