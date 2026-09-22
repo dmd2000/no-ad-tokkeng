@@ -15,19 +15,6 @@
 // ==/UserScript==
 (() => {
 
-    // 광고 제거 로직 '반복 시간(인터벌)' 계산
-    // function calInterval() {
-    //     let result = 0;
-    //     const isNewtoki = window.location.hostname.includes("newtoki"); // 도메인에 "newtoki"가 있는지 확인
-    //     const isToki = window.location.hostname.includes("toki"); // 도메인에 "toki"가 있는지 확인
-
-    //     if (isNewtoki) result = 1.0 * 1000; // newtoki 이면 1초 설정
-    //     else if (isToki) result = 1.0 * 1000; // toki 이면 1초 설정
-    //     else result = 1.0 * 1000; // 그 외엔 1초 설정
-
-    //     return result;
-    // }
-
     // 광고 배너 제거
     function removeBanners(time) {
         const adBanners = document.querySelectorAll("section[data-br-n]"); // html 중 <section data-br-n=숫자>로 된 태그 데이터의 배열 생성
