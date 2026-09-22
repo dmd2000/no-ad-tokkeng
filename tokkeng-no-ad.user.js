@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         토깽이 광고제거
 // @namespace    http://tampermonkey.net/
-// @version      1.19.13
+// @version      1.19.14
 // @description  토깽이 광고지우는 용도
 // @author       NoAD
 // @match        *://newtoki*.org/*
@@ -22,7 +22,7 @@
         // 배열에 데이터가 없다면 중단
         if (adBanners.length < 1) return;
 
-        for (let adBanner of adBanners) adBanner.innerHTML = ''; // 광고 삭제 속도 증가
+        for (let adBanner of adBanners) adBanner.replaceChildren(); // 광고 삭제 속도 증가
 
         // 타이머가 지나면 코드를 실행
         setTimeout(() => {
